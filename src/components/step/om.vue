@@ -31,18 +31,6 @@
                         disabled></el-input>
             </el-col>
           </el-form-item>
-          <el-form-item label=" user" label-width="200px">
-            <el-col :span="6">
-              <el-input value="kibana"
-                        disabled></el-input>
-            </el-col>
-          </el-form-item>
-          <el-form-item label=" password" label-width="200px">
-            <el-col :span="6">
-              <el-input value="Bizconf1"
-                        disabled></el-input>
-            </el-col>
-          </el-form-item>
         </div>
     </div>
     <h5 v-if="om_count>0">二. 监控</h5>

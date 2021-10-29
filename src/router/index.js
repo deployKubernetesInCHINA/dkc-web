@@ -2,8 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import EditView from "../views/EditView";
 import LoadFromYaml from "../components/LoadFromYaml";
-import Aliyun from "../components/Aliyun";
-import Offline from "../components/Offline";
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -23,18 +22,6 @@ const routes = [
     path: '/loadfromyaml',
     name: 'LoadFromYaml',
     component: LoadFromYaml,
-    props: true
-  },
-  {
-    path: '/aliyun',
-    name: 'Aliyun',
-    component: Aliyun,
-    props: true
-  },
-  {
-    path: '/offline',
-    name: 'Offline',
-    component: Offline,
     props: true
   },
   // {
