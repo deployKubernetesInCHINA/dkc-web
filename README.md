@@ -1,4 +1,6 @@
 # dkc-web
+此项目是dkc系列中的inventory 编辑项目, 是纯前端项目,不需要后端.
+
 
 ## Project setup
 ```
