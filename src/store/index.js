@@ -104,8 +104,7 @@ export default new Vuex.Store({
             },
           },
           "kube_control_plane": {
-            vars: {
-            },
+            vars: {},
             hosts: {}
           },
           etcd: {
@@ -141,7 +140,6 @@ export default new Vuex.Store({
       state.jsonObj.all.hosts = value.all.hosts
 
       //k8s_cluster
-      state.jsonObj.all.children.sg1 = value.all.children.sg1
       Object.assign(state.jsonObj.all.children["k8s_cluster"].vars, value.all.children["k8s_cluster"].vars)
       Object.assign(state.jsonObj.all.children["kube_control_plane"].vars, value.all.children["kube_control_plane"].vars)
       // master_hosts
@@ -210,12 +208,16 @@ export default new Vuex.Store({
           state.jsonObj.all.vars.nfs_type = 'none'
         }
       } else if (value.all.vars.nfs_type === 'internal') {
-        state.nfs_host = value.all.children.k8s_cluster.vars.csi_driver_nfs_server
-      }
+        for(var key in value.all.hosts){
+          if (value.all.hosts[key].ansible_host === value.all.children.k8s_cluster.vars.csi_driver_nfs_server) {
+            state.nfs_host = key
+          }
+        }
 
+      }
       //label
       state.registry = ""
-    
+
       var hosts_keys = Object.keys(state.jsonObj.all.hosts)
       for (i = 0; i < hosts_keys.length; i++) {
         var node = hosts_keys[i]
@@ -257,7 +259,7 @@ export default new Vuex.Store({
         _this.arbiter = update_map[_this.arbiter]
       }
 
-  
+
       if (Object.keys(update_map).includes(_this.registry)) {
         _this.registry = update_map[_this.registry]
       }
@@ -453,6 +455,7 @@ export default new Vuex.Store({
   modules: {},
   getters: {
     hostsList(state) {
+      //all hostname list
       let _this = state
       var hosts = []
       if (_this.node_hosts.length === 0) {
@@ -469,6 +472,7 @@ export default new Vuex.Store({
       return hosts;
     },
     nodeHostsList(state) {
+      // only kube node hostname list
       let _this = state
       var hosts = []
       for (var i = 0; i < _this.node_hosts.length; i++) {
